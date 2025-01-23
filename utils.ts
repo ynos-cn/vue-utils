@@ -30,6 +30,19 @@ export const loadScript = (url: string) => {
   })
 }
 
+/** 跳转统一登录
+ *  @param {string} backurl 登录成功后返回的地址
+ */
+export const goToLogin = (backurl?: string) => {
+  let url: string = '/ioa/login/login'
+  if (url.indexOf('?') < 0) {
+    url = url + '?';
+  }
+  backurl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + window.location.pathname + (backurl ? backurl : '');
+  backurl = encodeURIComponent(backurl);
+  window.location.href = url + '&backurl=' + backurl
+}
+
 /**
  * @description: 获取token
  * @return {String} token | undefined
