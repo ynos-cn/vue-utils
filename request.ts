@@ -5,9 +5,8 @@
 import { useCancelTokenStore } from "@/store/cancelToken";
 import axios, { AxiosRequestConfig as Config, AxiosResponse, Canceler } from "axios";
 import config from '@/config/defaultSettings'
-import Cookies from "js-cookie";
 import router from "@/router";
-import { setToken } from "./utils";
+import { getToken, setToken } from "./utils";
 
 export interface AxiosRequestConfig extends Config {
   /** 是否允许接口并行请求 */
@@ -34,8 +33,8 @@ const err = (error: { request: AxiosRequestConfig, response: AxiosResponse }) =>
 
 service.interceptors.request.use((config: any) => {
   const cancelTokenStore = useCancelTokenStore();
-  if (Cookies.get('token')) {
-    config.headers['token'] = Cookies.get('token');
+  if (getToken()) {
+    config.headers['token'] = getToken();
   }
   config.headers["X-Axios-With"] = true;
   const key = `${config.url}-${config.method}`
