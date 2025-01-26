@@ -7,6 +7,7 @@ import axios, { AxiosRequestConfig as Config, AxiosResponse, Canceler } from "ax
 import config from '@/config/defaultSettings'
 import Cookies from "js-cookie";
 import router from "@/router";
+import { setToken } from "./utils";
 
 export interface AxiosRequestConfig extends Config {
   /** 是否允许接口并行请求 */
@@ -20,7 +21,7 @@ const service = axios.create({
 
 const err = (error: { request: AxiosRequestConfig, response: AxiosResponse }) => {
   if (error.response?.status === 401) {
-    Cookies.remove('token');
+    setToken('')
     router.push({
       path: '/ioa/login/login',
       query: {
