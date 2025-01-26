@@ -22,7 +22,7 @@ const err = (error: { request: AxiosRequestConfig, response: AxiosResponse }) =>
   if (error.response?.status === 401) {
     Cookies.remove('token');
     router.push({
-      path: '/login',
+      path: '/ioa/login/login',
       query: {
         redirect: router.currentRoute.value.fullPath
       }
