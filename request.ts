@@ -20,7 +20,7 @@ const service = axios.create({
 
 const err = (error: { request: AxiosRequestConfig, response: AxiosResponse }) => {
   if (error.response?.status === 401) {
-    setToken('')
+    setToken()
     router.push({
       path: '/ioa/login/login',
       query: {

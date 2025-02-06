@@ -55,7 +55,13 @@ export const getToken = (): string | undefined => {
  * @description: 设置token
  * @return {String} token | undefined
  */
-export const setToken = (token: string) => {
+export const setToken = (token?: string) => {
+  if (!token) {
+    Cookie.remove('token');
+    SessionStorage.remove('token');
+    LocalStorage.remove('token');
+    return;
+  }
   Cookie.set("token", token);
   SessionStorage.set("token", token);
   LocalStorage.set("token", token);
